@@ -1,0 +1,18 @@
+.json-per {
+  color: rgb(221, 225, 220);
+  font-size: 18px;
+  line-height: 30px;
+  word-break:break-all;
+}
+
+.json-wrapper {
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(0, 0, 0);
+  border-radius: 4px;
+  width: 80%;
+  margin-left: 7%;
+  margin-top: 20px;
+  padding: 10px 20px;
+  text-align: left;
+  overflow: hidden;
+}

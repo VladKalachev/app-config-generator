@@ -45,7 +45,7 @@ export const App = () => {
         <Tabs activeKey={activePage} onChange={handleChangePage} items={items}/>
         
         {/* Pages */}
-        { checkActivePage ? <CreateConfigPage /> : <ImportConfigPage />}
+        {checkActivePage ? <CreateConfigPage /> : <ImportConfigPage />}
        </Content>
     </Layout>
   )
