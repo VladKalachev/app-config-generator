@@ -8,7 +8,7 @@ export const JSONViewer = ({ value }: JSONViewerProps) => {
   return (
     <div className="json-wrapper">
       <pre className="json-per">
-        {JSON.stringify(value, 0, 2)}
+        {JSON.stringify(value, null, 2)}
       </pre>
     </div>
   )
