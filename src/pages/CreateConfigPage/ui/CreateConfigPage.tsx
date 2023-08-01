@@ -1,8 +1,10 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
-import { Button, Form, Input, InputNumber} from 'antd'
+import { Button, Form, Input, InputNumber, notification } from 'antd'
 import { useState } from 'react'
-// import * as fs from "fs";
+const fs = window.api.fs;
+// const dialog = window.api.dialog;
+
 
 const formItemLayout = {
   labelCol: {
@@ -15,6 +17,8 @@ const formItemLayout = {
   },
 };
 
+console.log('api', window.api)
+
 export const CreateConfigPage = () => {
 
   const [formValue, setFormValue] = useState(demo)
@@ -23,25 +27,16 @@ export const CreateConfigPage = () => {
     console.log('form value', values)
     setFormValue(values);
 
-    function download(content: any, fileName: string, contentType: string) {
-      const a = document.createElement("a");
-      const file = new Blob([content], {type: contentType});
-      a.href = URL.createObjectURL(file);
-      a.download = fileName;
-      a.click();
+    try {
+      // window.electron.openDialog();
+      // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
+      // fs.writeFileSync("data.json", JSON.stringify(values));
+      // notification.info({ message: "Файл успешно сохранен!" });
+    } catch (error) {
+      // logging the error
+      console.error(error);
+      throw error;
     }
-
-    // download(JSON.stringify(values), 'json.txt', 'text/plain')
-
-    // try {
-    //   // reading a JSON file synchronously
-    //   fs.writeFileSync("data.json", values);
-    // } catch (error) {
-    //   // logging the error
-    //   console.error(error);
-    
-    //   throw error;
-    // }
   }
 
   return (
