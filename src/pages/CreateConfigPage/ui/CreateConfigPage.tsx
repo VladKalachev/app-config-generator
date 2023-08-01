@@ -1,10 +1,8 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
-import { Button, Form, Input, InputNumber, notification } from 'antd'
+import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
 import { useState } from 'react'
-const fs = window.api.fs;
-// const dialog = window.api.dialog;
-
+const { dialogOpen, natification, fs, dialogSave } = window.api
 
 const formItemLayout = {
   labelCol: {
@@ -28,6 +26,9 @@ export const CreateConfigPage = () => {
     setFormValue(values);
 
     try {
+      // natification();
+      dialogOpen()
+
       // window.electron.openDialog();
       // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
       // fs.writeFileSync("data.json", JSON.stringify(values));
@@ -38,6 +39,12 @@ export const CreateConfigPage = () => {
       throw error;
     }
   }
+
+  const handleImportFile = () => {
+    dialogSave()
+     console.log('handleImportFile', )
+  }
+ 
 
   return (
     <>
@@ -69,9 +76,16 @@ export const CreateConfigPage = () => {
         </Form.Item>
         
 
+      <Space>
+        <Button type="default" onClick={handleImportFile}>
+          Импорт конфига
+        </Button>
+        
         <Button type="primary" htmlType="submit">
           Сохранить конфиг
         </Button>
+      </Space>
+      
       </Form>
 
       {/* JSON viewer */}
