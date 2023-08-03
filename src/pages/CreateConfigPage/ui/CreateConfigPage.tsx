@@ -26,13 +26,12 @@ export const CreateConfigPage = () => {
     setFormValue(values);
 
     try {
-      // natification();
-      dialogOpen()
+      dialogSave()
 
       // window.electron.openDialog();
       // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
       // fs.writeFileSync("data.json", JSON.stringify(values));
-      // notification.info({ message: "Файл успешно сохранен!" });
+      notification.info({ message: "Файл успешно сохранен!" });
     } catch (error) {
       // logging the error
       console.error(error);
@@ -41,8 +40,7 @@ export const CreateConfigPage = () => {
   }
 
   const handleImportFile = () => {
-    dialogSave()
-     console.log('handleImportFile', )
+    dialogOpen();
   }
  
 

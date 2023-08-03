@@ -46,13 +46,18 @@ ipcMain.on('notify', (e, message) => {
 // Open file
 ipcMain.on('dialog-open', (event, data) => {
   dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }).then(filePaths => {
-      event.sender.send('open-file-paths', filePaths);
+    event.sender.send('open-file-paths', filePaths);
   });
 })
 
 // Save file
 ipcMain.on('dialog-save', (event, data) => {
-  // dialog.showSaveDialog({ properties: ['openFile', 'multiSelections'] })
+  const options = {
+    title: 'Save file',
+  }
+  dialog.showSaveDialog(options, (filename: string) => {
+    event.sender.send('saved-file', filename)
+  })
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
