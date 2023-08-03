@@ -13,15 +13,16 @@ const dialogOpen = () => {
   ipcRenderer.send('dialog-open')
 };
 
+const formData = {};
+
 // Open files
-ipcRenderer.on('open-file-paths', (event,data)=>{
-  console.log(`Canceled? ${data.canceled}`);
-  console.log(`File Paths: ${data.filePaths}`);
-  // fs.open(data.filePaths, (err, data) => {
-  //   if (err) throw err;
-  //   console.log(111, data);
-  // })
-  
+// ipcRenderer.on('open-file-paths', (event, content)=>{
+//   console.log("content", content)
+//   formData = content;
+// });
+ipcRenderer.on('open-file-paths', (event, store)=>{
+  // console.log("store", store)
+  console.log('store', store);
 });
 
 let saveName = '';
@@ -37,6 +38,7 @@ const dialogSave = () => {
 }
 
 window.api = {
+  formData,
   saveName,
   dialogOpen,
   dialogSave,

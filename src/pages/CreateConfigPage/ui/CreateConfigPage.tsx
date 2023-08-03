@@ -1,8 +1,8 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
-import { useState } from 'react'
-const { dialogOpen, natification, fs, dialogSave } = window.api
+import { useEffect, useState } from 'react'
+const { dialogOpen, natification, fs, dialogSave, formData } = window.api
 
 const formItemLayout = {
   labelCol: {
@@ -19,7 +19,12 @@ console.log('api', window.api)
 
 export const CreateConfigPage = () => {
 
-  const [formValue, setFormValue] = useState(demo)
+  const [formValue, setFormValue] = useState({})
+
+  console.log(111, formValue)
+  useEffect(() => {
+    setFormValue(formValue)
+  }, [formData])
 
   const onFinish = (values: any) => {
     console.log('form value', values)
@@ -31,7 +36,7 @@ export const CreateConfigPage = () => {
       // window.electron.openDialog();
       // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
       // fs.writeFileSync("data.json", JSON.stringify(values));
-      notification.info({ message: "Файл успешно сохранен!" });
+      // notification.info({ message: "Файл успешно сохранен!" });
     } catch (error) {
       // logging the error
       console.error(error);
