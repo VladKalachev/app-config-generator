@@ -1,5 +1,4 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
-import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
 import { useEffect, useState,  memo } from 'react'
 const { dialogOpen, dialogSave, ipcRenderer } = window.api
@@ -18,20 +17,6 @@ const formItemLayout = {
 export const CreateConfigPage = memo(() => {
   const [form] = Form.useForm();
   const [formValue, setFormValue] = useState({})
-
-  // const [api, contextHolder] = notification.useNotification();
-
-  // useEffect(() => {
-  //    // Мониторинг ошибок
-  //    ipcRenderer.on('error-notification', (event: any, textError: any)=>{
-  //     console.log(111, textError)
-  //     // notification.info(textError);
-  //     api.error({
-  //         message: 'Notification Title',
-  //         description: textError.toString(),
-  //     });
-  //   });
-  // }, [])
      
   useEffect(() => {
     setFormValue(form.getFieldsValue())
