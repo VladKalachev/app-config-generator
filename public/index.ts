@@ -60,13 +60,17 @@ ipcMain.on('dialog-open', async (event) => {
 })
 
 // Save file
-ipcMain.on('dialog-save', (event, data) => {
-  const options = {
-    title: 'Save file',
-  }
-  dialog.showSaveDialog(options, (filename: string) => {
-    event.sender.send('saved-file', filename)
-  })
+ipcMain.on('dialog-save', async (event, buffer) => {
+  const fileName = await dialog.showSaveDialog({
+    title: 'Download to File…',
+    filters: [{ name: 'All Files', extensions: ['*'] }]
+   });
+
+   if(fileName) {
+    fs.writeFile(fileName.filePath,  JSON.stringify(buffer), (err) => {
+      console.log(err);
+    })
+   }
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

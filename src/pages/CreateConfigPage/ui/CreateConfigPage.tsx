@@ -2,7 +2,7 @@ import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
 import { useEffect, useState, useMemo } from 'react'
-const { dialogOpen, natification, fs, dialogSave, ipcRenderer } = window.api
+const { dialogOpen, dialogSave, ipcRenderer } = window.api
 
 const formItemLayout = {
   labelCol: {
@@ -14,8 +14,6 @@ const formItemLayout = {
     sm: { span: 16 },
   },
 };
-
-console.log('api', window.api)
 
 export const CreateConfigPage = () => {
   const [form] = Form.useForm();
@@ -33,7 +31,7 @@ export const CreateConfigPage = () => {
     setFormValue(values);
 
     try {
-      dialogSave()
+      dialogSave(values);
 
       // window.electron.openDialog();
       // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
