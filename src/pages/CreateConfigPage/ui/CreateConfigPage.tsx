@@ -1,7 +1,7 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useState,  memo } from 'react'
 const { dialogOpen, dialogSave, ipcRenderer } = window.api
 
 const formItemLayout = {
@@ -15,12 +15,28 @@ const formItemLayout = {
   },
 };
 
-export const CreateConfigPage = () => {
+export const CreateConfigPage = memo(() => {
   const [form] = Form.useForm();
   const [formValue, setFormValue] = useState({})
 
+  // const [api, contextHolder] = notification.useNotification();
+
+  // useEffect(() => {
+  //    // Мониторинг ошибок
+  //    ipcRenderer.on('error-notification', (event: any, textError: any)=>{
+  //     console.log(111, textError)
+  //     // notification.info(textError);
+  //     api.error({
+  //         message: 'Notification Title',
+  //         description: textError.toString(),
+  //     });
+  //   });
+  // }, [])
+     
   useEffect(() => {
     setFormValue(form.getFieldsValue())
+
+    // Импорт файлов
     ipcRenderer.on('open-file-paths', (event: any, file: any)=>{
       form.setFieldsValue(file);
       setFormValue(file);
@@ -29,7 +45,6 @@ export const CreateConfigPage = () => {
 
   const onFinish = (values: any) => {
     setFormValue(values);
-
     try {
       dialogSave(values);
       // notification.info({ message: "Файл успешно сохранен!" });
@@ -40,9 +55,8 @@ export const CreateConfigPage = () => {
     }
   }
 
-  const handleImportFile = () => {
-    dialogOpen();
-  }
+  // Импорт файлов
+  const handleImportFile = () =>  dialogOpen();
 
   // Input
   const onChangeItem = (event: any) => {
@@ -60,6 +74,7 @@ export const CreateConfigPage = () => {
  
   return (
     <>
+    {/* {contextHolder} */}
       {/* Form */}
       <Form 
         form={form}
@@ -101,4 +116,4 @@ export const CreateConfigPage = () => {
       <JSONViewer value={formValue} />
     </>
   )
-}
+});

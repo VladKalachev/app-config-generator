@@ -41,7 +41,7 @@ const createWindow = (): void => {
 app.on('ready', createWindow);
 
 ipcMain.on('notify', (e, message) => {
-  console.log('notify', e, message);
+  // console.log('notify', message);
   new Notification({ title: "Notification", body: message }).show();
 })
 
@@ -55,22 +55,27 @@ ipcMain.on('dialog-open', async (event) => {
      event.sender.send('open-file-paths', JSON.parse(fileContents));
     }
   } catch (error) {
-    console.log(error);
+    event.sender.send('error-notification', error);
   }
 })
 
 // Save file
 ipcMain.on('dialog-save', async (event, buffer) => {
-  const fileName = await dialog.showSaveDialog({
-    title: 'Download to File…',
-    filters: [{ name: 'All Files', extensions: ['*'] }]
-   });
+  try {
+     const fileName = await dialog.showSaveDialog({
+      title: 'Download to File…',
+      filters: [{ name: 'All Files', extensions: ['*'] }]
+    });
 
-   if(fileName) {
-    fs.writeFile(fileName.filePath,  JSON.stringify(buffer), (err) => {
-      console.log(err);
-    })
-   }
+    if(fileName) {
+      fs.writeFile(fileName.filePath,  JSON.stringify(buffer), (err) => {
+        console.log(err);
+      })
+    }
+  } catch (error) {
+    console.log(error);
+    event.sender.send('error-notification', error);
+  }
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
