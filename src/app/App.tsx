@@ -16,10 +16,10 @@ const items = [
     label: "Создать конфиг",
     key: ActivePage.CREATE,
   },
-  {
-    label: "Импортировать конфиг",
-    key: ActivePage.IMPORT,
-  }
+  // {
+  //   label: "Импортировать конфиг",
+  //   key: ActivePage.IMPORT,
+  // }
 ]
 
 export const App = () => {

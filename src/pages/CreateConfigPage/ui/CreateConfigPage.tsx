@@ -20,6 +20,7 @@ export const CreateConfigPage = () => {
   const [formValue, setFormValue] = useState({})
 
   useEffect(() => {
+    setFormValue(form.getFieldsValue())
     ipcRenderer.on('open-file-paths', (event: any, file: any)=>{
       form.setFieldsValue(file);
       setFormValue(file);
@@ -67,15 +68,15 @@ export const CreateConfigPage = () => {
         initialValues={formValue}
         {...formItemLayout}
       >
-        <Form.Item name={["Security", "Jwt", "Issuer"]} label="Issuer" >
+        <Form.Item name={["Security", "Jwt", "Issuer"]} label="Issuer" rules={[{ required: true, message: 'Обязательное поле' }]}>
           <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
-        <Form.Item name={["Security", "Jwt", "Audience"]} label="Audience">
+        <Form.Item name={["Security", "Jwt", "Audience"]} label="Audience" rules={[{ required: true, message: 'Обязательное поле' }]}>
           <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
-        <Form.Item name={["Security", "Jwt", "SigningKey"]} label="SigningKey">
+        <Form.Item name={["Security", "Jwt", "SigningKey"]} label="SigningKey" rules={[{ required: true, message: 'Обязательное поле' }]}>
           <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
