@@ -1,8 +1,8 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
-import { useEffect, useState } from 'react'
-const { dialogOpen, natification, fs, dialogSave, formData } = window.api
+import { useEffect, useState, useMemo } from 'react'
+const { dialogOpen, natification, fs, dialogSave, ipcRenderer } = window.api
 
 const formItemLayout = {
   labelCol: {
@@ -18,13 +18,15 @@ const formItemLayout = {
 console.log('api', window.api)
 
 export const CreateConfigPage = () => {
-
+  const [form] = Form.useForm();
   const [formValue, setFormValue] = useState({})
 
-  console.log(111, formValue)
   useEffect(() => {
-    setFormValue(formValue)
-  }, [formData])
+    ipcRenderer.on('open-file-paths', (event: any, file: any)=>{
+      form.setFieldsValue(file);
+      setFormValue(file);
+    });
+  }, [])
 
   const onFinish = (values: any) => {
     console.log('form value', values)
@@ -48,11 +50,11 @@ export const CreateConfigPage = () => {
     dialogOpen();
   }
  
-
   return (
     <>
       {/* Form */}
       <Form 
+        form={form}
         onFinish={onFinish} 
         style={{ maxWidth: 600 }} 
         // onFieldsChange={(_, allFields: any) => {

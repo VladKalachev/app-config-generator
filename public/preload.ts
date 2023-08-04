@@ -3,9 +3,6 @@
 import fs from 'fs';
 import { ipcRenderer, contextBridge } from 'electron';
 
-// const remote = require('remote');
-// const dialog = require('electron').remote.dialog 
-
 const natification = () => ipcRenderer.send("notify", "notification!!!")
 
 // Open dialog
@@ -13,17 +10,15 @@ const dialogOpen = () => {
   ipcRenderer.send('dialog-open')
 };
 
-const formData = {};
+// const formData = {};
 
 // Open files
 // ipcRenderer.on('open-file-paths', (event, content)=>{
 //   console.log("content", content)
 //   formData = content;
 // });
-ipcRenderer.on('open-file-paths', (event, store)=>{
-  // console.log("store", store)
-  console.log('store', store);
-});
+
+
 
 let saveName = '';
 
@@ -38,7 +33,7 @@ const dialogSave = () => {
 }
 
 window.api = {
-  formData,
+  ipcRenderer,
   saveName,
   dialogOpen,
   dialogSave,
