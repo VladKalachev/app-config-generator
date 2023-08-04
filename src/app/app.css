@@ -5,6 +5,7 @@
 
 .content-wrapper {
   padding: 20px;
+  min-height: 740px;
 }
 
 .submit-btn {
