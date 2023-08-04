@@ -9,8 +9,8 @@ const formItemLayout = {
     sm: { span: 8 },
   },
   wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
+    xs: { span: 20 },
+    sm: { span: 12 },
   },
 };
 
@@ -59,16 +59,14 @@ export const CreateConfigPage = memo(() => {
  
   return (
     <>
-    {/* {contextHolder} */}
       {/* Form */}
       <Form 
         form={form}
-        onFinish={onFinish} 
-        style={{ maxWidth: 600 }} 
+        onFinish={onFinish}
         initialValues={formValue}
         {...formItemLayout}
       >
-        <Form.Item name={["Security", "Jwt", "Issuer"]} label="Issuer" rules={[{ required: true, message: 'Обязательное поле' }]}>
+        <Form.Item name={["Security", "Jwt", "Issuer"]} label="Issuer" tooltip={"Данное поле отвечает за ..."} rules={[{ required: true, message: 'Обязательное поле' }]}>
           <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
@@ -85,15 +83,17 @@ export const CreateConfigPage = memo(() => {
         </Form.Item>
         
 
-      <Space>
-        <Button type="default" onClick={handleImportFile}>
-          Импорт конфига
-        </Button>
-        
-        <Button type="primary" htmlType="submit">
-          Сохранить конфиг
-        </Button>
-      </Space>
+      <div className='submit-btn'>
+        <Space>
+          <Button type="default" onClick={handleImportFile}>
+            Импорт конфига
+          </Button>
+          
+          <Button type="primary" htmlType="submit">
+            Сохранить конфиг
+          </Button>
+        </Space>
+      </div>
       
       </Form>
 
