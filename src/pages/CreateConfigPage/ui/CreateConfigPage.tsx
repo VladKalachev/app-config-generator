@@ -1,7 +1,7 @@
 import { JSONViewer } from '../../../shared/ui/JSONViewer'
 import demo from '../demo/demo.0.1.json'
 import { Button, Form, Input, InputNumber, notification, Space } from 'antd'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 const { dialogOpen, dialogSave, ipcRenderer } = window.api
 
 const formItemLayout = {
@@ -27,15 +27,10 @@ export const CreateConfigPage = () => {
   }, [])
 
   const onFinish = (values: any) => {
-    console.log('form value', values)
     setFormValue(values);
 
     try {
       dialogSave(values);
-
-      // window.electron.openDialog();
-      // console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
-      // fs.writeFileSync("data.json", JSON.stringify(values));
       // notification.info({ message: "Файл успешно сохранен!" });
     } catch (error) {
       // logging the error
@@ -47,6 +42,20 @@ export const CreateConfigPage = () => {
   const handleImportFile = () => {
     dialogOpen();
   }
+
+  // Input
+  const onChangeItem = (event: any) => {
+    const value = event.target.value;
+    const nameField = event.target.name;
+    form.setFieldValue(nameField, value)
+    setFormValue(form.getFieldsValue())
+  }
+
+  // Number
+  const onChangeNumber = (value: any, name: string) => {
+    form.setFieldValue(name, value)
+    setFormValue(form.getFieldsValue())
+  }
  
   return (
     <>
@@ -55,27 +64,23 @@ export const CreateConfigPage = () => {
         form={form}
         onFinish={onFinish} 
         style={{ maxWidth: 600 }} 
-        // onFieldsChange={(_, allFields: any) => {
-        //   console.log('onFieldsChange', allFields)
-        //   setFormValue(allFields);
-        // }}
-        {...formItemLayout}
         initialValues={formValue}
+        {...formItemLayout}
       >
         <Form.Item name={["Security", "Jwt", "Issuer"]} label="Issuer" >
-          <Input />
+          <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
         <Form.Item name={["Security", "Jwt", "Audience"]} label="Audience">
-          <Input />
+          <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
         <Form.Item name={["Security", "Jwt", "SigningKey"]} label="SigningKey">
-          <Input />
+          <Input onChange={onChangeItem} placeholder={"Введите значение"} />
         </Form.Item>
 
         <Form.Item name={["Security", "Jwt", "SessionLifetimeMin"]} label="SessionLifetimeMin">
-          <InputNumber />
+          <InputNumber onChange={(value) => onChangeNumber(value, "SessionLifetimeMin")} placeholder={"Введите значение"}/>
         </Form.Item>
         
 
