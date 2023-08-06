@@ -7,7 +7,6 @@ import { ipcRenderer } from 'electron';
 // Open dialog
 const dialogOpen = () =>  ipcRenderer.send('dialog-open');
 
-
 // Save files
 const dialogSave = (json: any) => {
   ipcRenderer.send('dialog-save', json);
