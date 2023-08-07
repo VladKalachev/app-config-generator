@@ -1,8 +1,8 @@
-import { Alert } from 'antd'
 import Highlighter from "react-highlight-words";
 import demo from '../../../pages/CreateConfigPage/scheme/scheme1.json'
 import { getKeys } from '../../../shared/lib/getKeys';
 import './JSONViewer.css';
+import { JSONViewerErrors } from './JSONViewerErrors';
 
 interface JSONViewerProps {
   value: any;
@@ -24,20 +24,11 @@ export const JSONViewer = ({ value }: JSONViewerProps) => {
   // Убираем из массива ключей текущей формы все ключи которые совпадают со схемой
   const validationArray = currentValueArray.filter((val: string) => !arraySchema.includes(val));
 
-
   return (
     <>
       {/* List Error */}
       <div className="list-errors">
-        {validationArray.length ? 
-          <>
-            <div className="list-errors-title">Список ошибок</div>
-            {validationArray.map((value: string) => (
-              <div className="field-error" key={value}>
-                 <Alert message={`Поля ${value} нет в схеме! Поле не валидное!`} type="error" showIcon/>
-                </div>)
-            )}
-          </> : null}
+        <JSONViewerErrors errors={validationArray} />
       </div>
 
       <div className="json-wrapper">
